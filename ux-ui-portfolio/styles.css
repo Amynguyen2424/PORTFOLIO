@@ -9,7 +9,7 @@
   --color-third-brand: #00133f;
 
   /* Applied Colors */
-  --color-bg: #dbddf4;
+  --color-bg: #ffffff;
   --color-bg-alt: linear-gradient(135deg, #e7e9fb 0%, #dbddf4 100%);
   --color-card: rgba(255, 255, 255, 0.7);
   --color-text: #0f1535;
@@ -17,6 +17,9 @@
   --color-accent: #5b66f0;
   --color-accent-dark: #3764d0;
   --color-border: rgba(91, 102, 240, 0.25);
+  --color-warm-1: #a8ddff; /* repurposed for light blue gradient */
+  --color-warm-2: #a3d6fc;
+  --color-warm-3: #55a9ff;
 
   /* Typography */
   --font-primary: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -74,7 +77,7 @@ body {
   left: 0;
   width: 100%;
   /* Light frosted header background */
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(219, 221, 244, 0.95) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255) 0%, rgba(255, 255, 255) 100%);
   backdrop-filter: blur(12px);
   z-index: 1000;
   border-bottom: 1px solid var(--color-border);
@@ -198,10 +201,12 @@ body {
   position: relative;
   padding-top: 80px;
   overflow: hidden;
-  /* Soft gradient hero background that matches the page */
+  /* Soft gradient hero background that matches the page
   background: radial-gradient(circle at 20% 20%, rgba(91, 102, 240, 0.15), transparent 45%),
     radial-gradient(circle at 80% 10%, rgba(55, 100, 208, 0.12), transparent 40%),
-    linear-gradient(135deg, #e9ebfc 0%, #dbddf4 60%, #eef0ff 100%);
+    linear-gradient(135deg, #e9ebfc 0%, #dbddf4 60%, #eef0ff 100%); */
+      background: radial-gradient(circle at 50% 65%, rgba(117, 176, 255, 0.35), rgba(117, 176, 255, 0) 55%),
+    linear-gradient(180deg, #f9f6ff 0%, #8ab8ff 100%);
 }
 
 .hero-bg {
@@ -268,12 +273,15 @@ body {
   font-size: 1rem;
   position: relative;
   overflow: hidden;
+  isolation: isolate;
 }
 
 .btn-primary {
   /* Gradient button background */
-  background: linear-gradient(135deg, var(--color-secondary-brand) 0%, var(--color-accent-dark) 100%);
-  color: var(--color-text);
+  background: linear-gradient(120deg, var(--color-secondary-brand) 0%, var(--color-accent-dark) 50%, var(--color-third-brand) 100%);
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(91, 102, 240, 0.35);
+  z-index: 0;
 }
 
 .btn-primary::before {
@@ -284,7 +292,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, var(--color-accent-dark) 0%, var(--color-primary-brand) 100%);
+  background: linear-gradient(120deg, var(--color-primary-brand) 0%, var(--color-secondary-brand) 60%, var(--color-accent-dark) 100%);
   opacity: 0;
   transition: var(--transition);
   z-index: -1;
@@ -300,13 +308,29 @@ body {
 }
 
 .btn-secondary {
-  background-color: transparent;
-  color: var(--color-text);
-  border: 2px solid var(--color-border);
-  /* Add gradient border effect */
-  background: linear-gradient(var(--color-third-brand), var(--color-third-brand)) padding-box,
-    linear-gradient(135deg, var(--color-secondary-brand), var(--color-accent-dark)) border-box;
-  border: 2px solid transparent;
+  background: linear-gradient(120deg, var(--color-warm-1) 0%, var(--color-warm-2) 50%, var(--color-warm-3) 100%);
+  color: #fff;
+  box-shadow: 0 8px 22px rgba(103, 175, 255, 0.35);
+  z-index: 0;
+}
+
+.btn-secondary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, #e6f5ff 0%, #cdeaff 45%, #9fd4ff 100%);
+  opacity: 0;
+  transition: var(--transition);
+  z-index: -1;
+}
+
+.btn-secondary:hover::before {
+  opacity: 1;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(103, 175, 255, 0.4);
 }
 
 .btn-secondary:hover {
@@ -329,6 +353,11 @@ body {
   text-align: center;
   margin-bottom: var(--spacing-lg);
 }
+#about.section-alt,
+#contact.section-alt {
+  /* Light blue gradient for About and Contact */
+  background: linear-gradient(135deg, #e9f2ff 0%, #d9eaff 50%, #c7e0ff 100%);
+}
 
 .section-title {
   font-size: clamp(2rem, 5vw, 3rem);
@@ -346,8 +375,8 @@ body {
 /* ===== Projects Grid ===== */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--spacing-md);
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--spacing-sm);
 }
 
 .project-card {
@@ -390,7 +419,7 @@ body {
 .project-image {
   position: relative;
   overflow: hidden;
-  height: 250px;
+  height: 200px;
 }
 
 .project-image img {
@@ -424,26 +453,27 @@ body {
 }
 
 .project-link {
-  color: var(--color-text);
+  color: #fff;
   text-decoration: none;
   font-weight: 600;
   padding: 0.75rem 1.5rem;
-  /* Gradient border for project link */
-  background: linear-gradient(var(--color-third-brand), var(--color-third-brand)) padding-box,
-    linear-gradient(135deg, var(--color-secondary-brand), var(--color-accent-dark)) border-box;
-  border: 2px solid transparent;
+  background: linear-gradient(120deg, var(--color-secondary-brand) 0%, var(--color-accent-dark) 50%, var(--color-third-brand) 100%);
+  border: none;
   border-radius: var(--radius-sm);
   transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(91, 102, 240, 0.35);
 }
 
 .project-link:hover {
-  background: linear-gradient(135deg, var(--color-secondary-brand) 0%, var(--color-accent-dark) 100%);
-  color: var(--color-text);
-  box-shadow: 0 4px 16px rgba(91, 102, 240, 0.4);
+  background: linear-gradient(120deg, var(--color-primary-brand) 0%, var(--color-secondary-brand) 50%, var(--color-accent-dark) 100%);
+  color: #fff;
+  box-shadow: 0 8px 22px rgba(91, 102, 240, 0.45);
 }
 
 .project-content {
-  padding: var(--spacing-md);
+  padding: calc(var(--spacing-sm) + 0.25rem);
 }
 
 .project-tags {
@@ -621,7 +651,7 @@ body {
 /* ===== Footer ===== */
 .footer {
   /* Gradient footer background */
-  background: linear-gradient(135deg, #e7e9fb 0%, #dbddf4 100%);
+  background: whitesmoke;
   padding: var(--spacing-md) 0;
   border-top: 1px solid var(--color-border);
 }
@@ -746,4 +776,3 @@ body {
     width: 100%;
   }
 }
-
